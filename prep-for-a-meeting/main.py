@@ -6,8 +6,38 @@ from crewai import Crew
 from tasks import MeetingPreparationTasks
 from agents import MeetingPreparationAgents
 
+from langchain_community.llms import HuggingFaceEndpoint
+
+# import requests
+
+# API_URL = "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-70B-Instruct"
+# headers = {"Authorization": "Bearer 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"}
+
+# def query(payload):
+# 	response = requests.post(API_URL, headers=headers, json=payload)
+# 	return response.json()
+	
+# output = query({
+# 	"inputs": "Can you please let us know more details about your ",
+# })
+
+
+llm = HuggingFaceEndpoint(
+    endpoint_url="https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-70B-Instruct",
+    huggingfacehub_api_token="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",
+    task="text-generation",
+    max_new_tokens=512
+)
+
+# agent = Agent(
+#     role="HuggingFace Agent",
+#     goal="Generate text using HuggingFace",
+#     backstory="A diligent explorer of GitHub docs.",
+#     llm=llm
+# )
+
 tasks = MeetingPreparationTasks()
-agents = MeetingPreparationAgents()
+agents = MeetingPreparationAgents(llm)
 
 print("## Welcome to the Meeting Prep Crew")
 print('-------------------------------')

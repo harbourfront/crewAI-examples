@@ -4,6 +4,9 @@ from crewai import Agent
 from tools.ExaSearchTool import ExaSearchTool
 
 class MeetingPreparationAgents():
+	def __init__(self, llm):
+		self.llm = llm
+    
 	def research_agent(self):
 		return Agent(
 			role='Research Specialist',
@@ -13,6 +16,7 @@ class MeetingPreparationAgents():
 					As a Research Specialist, your mission is to uncover detailed information
 					about the individuals and entities participating in the meeting. Your insights
 					will lay the groundwork for strategic meeting preparation."""),
+			llm=self.llm,
 			verbose=True
 		)
 
@@ -25,6 +29,7 @@ class MeetingPreparationAgents():
 					As an Industry Analyst, your analysis will identify key trends,
 					challenges facing the industry, and potential opportunities that
 					could be leveraged during the meeting for strategic advantage."""),
+			llm=self.llm,
 			verbose=True
 		)
 
@@ -37,6 +42,7 @@ class MeetingPreparationAgents():
 					As a Strategy Advisor, your expertise will guide the development of
 					talking points, insightful questions, and strategic angles
 					to ensure the meeting's objectives are achieved."""),
+			llm=self.llm,
 			verbose=True
 		)
 
@@ -48,5 +54,6 @@ class MeetingPreparationAgents():
 			backstory=dedent("""\
 					As the Briefing Coordinator, your role is to consolidate the research,
 					analysis, and strategic insights."""),
+			llm=self.llm,
 			verbose=True
 		)
